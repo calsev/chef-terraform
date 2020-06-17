@@ -1,7 +1,3 @@
-# frozen_string_literal: true
-
-gpg = 'sudo -u root -i gpg2'
-
 # Custom resource based on the InSpec resource DSL
 class GpgSignature < Inspec.resource(1)
   require 'digest'
@@ -9,7 +5,7 @@ class GpgSignature < Inspec.resource(1)
   name 'gpg_signature'
   desc 'check gpg signatures'
   example "
-    describe gpg_signature('0.11.7') do
+    describe gpg_signature('0.12.26') do
       it { should be_valid }
     end
   "
@@ -29,7 +25,7 @@ class GpgSignature < Inspec.resource(1)
     gpg_verify = inspec.backend.run_command(
       "sudo -u root -i gpg2 --verify #{sigfile_path} #{checksums_file_path}"
     )
-    gpg_verify.exit_status.zero?
+    gpg_verify.exit_status == 0
   end
 
   def to_s

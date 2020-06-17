@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'spec_helper'
 require 'shared_examples'
 
@@ -31,9 +29,9 @@ describe 'terraform::gpgme' do
             name_real: 'HashiCorp Security')
   end
 
-  %w[terraform_0.11.7_SHA256SUMS terraform_0.11.7_SHA256SUMS.sig].each do |f|
+  %w(terraform_0.12.26_SHA256SUMS terraform_0.12.26_SHA256SUMS.sig).each do |f|
     it "downloaded #{f}" do
-      url = "https://releases.hashicorp.com/terraform/0.11.7/#{f}"
+      url = "https://releases.hashicorp.com/terraform/0.12.26/#{f}"
       expect(chef_run).to create_remote_file(f)
         .with(path: "/tmp/#{f}", mode: '0644', source: url)
     end

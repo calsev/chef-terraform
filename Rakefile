@@ -1,6 +1,4 @@
 
-# frozen_string_literal: true
-
 require 'bundler/setup'
 require 'stove/rake_task'
 
@@ -11,13 +9,16 @@ namespace :style do
   desc 'Run Ruby style checks'
   RuboCop::RakeTask.new(:ruby)
 
-  require 'foodcritic'
-  desc 'Run Chef style checks'
-  FoodCritic::Rake::LintTask.new(:chef)
+  require 'cookstyle'
+  require 'rubocop/rake_task'
+  desc 'Run Cookstyle'
+  RuboCop::RakeTask.new(:cookstyle) do |task|
+    task.options << '--display-cop-names'
+  end
 end
 
 desc 'Run all style checks'
-task style: ['style:chef', 'style:ruby']
+task style: ['style:cookstyle', 'style:ruby']
 
 require 'kitchen'
 desc 'Run Test Kitchen integration tests'
@@ -35,7 +36,7 @@ RSpec::Core::RakeTask.new(:spec) do |t, _args|
 end
 
 # The default rake task should just run it all
-task default: %w[style spec integration]
+task default: %w(style spec integration)
 
 begin
   require 'kitchen/rake_tasks'

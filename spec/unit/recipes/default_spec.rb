@@ -4,18 +4,17 @@ require 'spec_helper'
 require 'shared_examples'
 
 describe 'terraform::default' do
-  let(:terraform_version) { '0.11.7' }
+  let(:terraform_version) { '0.12.26' }
   context 'ubuntu' do
     let(:sha256sum) do
-      '6b8ce67647a59b2a3f70199c304abca0ddec0e49fd060944c26f666298e23418'
+      '607bc802b1c6c2a5e62cc48640f38aaa64bef1501b46f0ae4829feb51594b257'
     end
 
-    let(:checksums_file) { 'terraform_0.11.7_SHA256SUMS' }
+    let(:checksums_file) { 'terraform_0.12.26_SHA256SUMS' }
 
     let(:checksums) do
       {
-        'terraform_0.11.7_linux_amd64.zip' =>
-          '6b8ce67647a59b2a3f70199c304abca0ddec0e49fd060944c26f666298e23418'
+        'terraform_0.12.26_linux_amd64.zip' => sha256sum,
       }
     end
 
@@ -38,7 +37,7 @@ describe 'terraform::default' do
       it 'logs error' do
         allow(Chef::Resource).to receive(:signatures_trustworthy?)
           .and_return(false)
-        rsrc = 'terraform_0.11.7_SHA256SUMS trust worthiness alert'
+        rsrc = 'terraform_0.12.26_SHA256SUMS trust worthiness alert'
         expect(chef_run).to write_log(rsrc)
       end
 
@@ -46,19 +45,19 @@ describe 'terraform::default' do
         rsrc = chef_run.ruby_block('raise if signature file cannot be trusted')
         expect(rsrc).to do_nothing
       end
-      
+
       it 'triggers notifications due to bad signatures file' do
         log_name = "#{checksums_file} trust worthiness alert"
         resource = chef_run.log(log_name)
         notifications = [
           {
             notify: "remote_file[#{checksums_file}]",
-            action: :delete
+            action: :delete,
           },
           {
             notify: 'ruby_block[raise if signature file cannot be trusted]',
-            action: :run
-          }
+            action: :run,
+          },
         ]
 
         notifications.each do |notification|
@@ -71,13 +70,12 @@ describe 'terraform::default' do
 
   context 'windows' do
     let(:sha256sum) do
-      '5fd003ef20f7a6a85ced4ad30bf95698afd4d0bfd477541583ff014e96026d6c'
+      'f232bf25dc32e618fbb692b98857d10a84e16e531e9ce5e87e060c1369bde092'
     end
 
     let(:checksums) do
       {
-        'terraform_0.11.7_windows_amd64.zip' =>
-          '5fd003ef20f7a6a85ced4ad30bf95698afd4d0bfd477541583ff014e96026d6c'
+        'terraform_0.12.26_windows_amd64.zip' => sha256sum,
       }
     end
 

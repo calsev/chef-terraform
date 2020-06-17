@@ -1,11 +1,9 @@
-
-# frozen_string_literal: true
-
 #
-# Cookbook Name:: terraform
+# Cookbook:: terraform
 # Recipe:: default
 #
-# Copyright 2014, Ross Timson
+# Copyright:: 2014-2016, Ross Timson
+# 2016-2020, Dang H. Nguyen <haidangwa@gmail.com>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,6 +17,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+node.default['terraform']['zipfile'] = "terraform_#{node['terraform']['version']}_" \
+  "#{node['os']}_#{node['terraform']['arch']}.zip"
 
 include_recipe "#{cookbook_name}::gpgme"
 

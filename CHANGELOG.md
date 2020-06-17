@@ -1,11 +1,21 @@
 terraform Cookbook CHANGELOG
 ============================
 
+3.0.0
+-----
+- Changes minimum Chef Infra Client required: `>= 15.8`
+- Fixed [#3](https://github.com/haidangwa/chef-terraform/issues/3)
+- Updates Test Kitchen configurations
+  - Uses dokken driver
+  - Renames .kitchen.yml to kitchen.yml
+  - Tests with latest chef-stable version only
+  - Updates platforms to current versions
+  - Use cookstyle
+- Changes default terraform version to 0.12.26
 
 2.1.1
 -----
 No code change - only updating cookbook ownership information.
-
 
 2.1.0
 -----

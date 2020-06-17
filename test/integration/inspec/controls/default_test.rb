@@ -1,13 +1,9 @@
-# frozen_string_literal: true
-
-version = '0.11.7'
-
 control 'terraform cookbook default' do
   title 'Default recipe'
   impact 0.9
   only_if { !os.windows? }
 
-  terraform_dir = "/usr/local/terraform-#{version}"
+  terraform_dir = "/usr/local/terraform-#{input('terraform_version')}"
   describe directory(terraform_dir) do
     it { should be_directory }
     it { should exist }

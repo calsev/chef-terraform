@@ -42,7 +42,7 @@ module Terraform
         "#{sigfile_path} #{checksums_file_path}"
       gpg_verify = Mixlib::ShellOut.new(cmd)
       gpg_verify.run_command
-      gpg_verify.exitstatus.zero?
+      gpg_verify.exitstatus == 0
     end
 
     def terraform_zipfile
@@ -63,7 +63,5 @@ module Terraform
   end
 end
 
-::Chef::Node.send(:include, Terraform::Helpers)
-::Chef::Recipe.send(:include, Terraform::Helpers)
-::Chef::Provider.send(:include, Terraform::Helpers)
-::Chef::Resource.send(:include, Terraform::Helpers)
+::Chef::Node.include Terraform::Helpers
+::Chef::DSL::Universal.include Terraform::Helpers

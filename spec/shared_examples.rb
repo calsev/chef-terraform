@@ -11,7 +11,7 @@ shared_examples 'install_ark_terraform' do
       checksum: sha256sum,
       has_binaries: ['terraform'],
       append_env_path: false,
-      strip_components: 0
+      strip_components: 0,
     }
 
     if chef_run.node['platform_family'] == 'windows'
