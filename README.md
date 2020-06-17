@@ -13,7 +13,7 @@ As of v2.1.1, the ownership of this cookbook was transferred to [haidangwa]. Fro
 Requirements
 ------------
 ### Chef Client
-As of version 2.0.0, this cookbook will require minimum chef-client 13
+As of version 3.0.0, this cookbook will require minimum Chef Infra Client `>= 15.8`
 
 ### Cookbooks
 
@@ -59,10 +59,9 @@ cookbook 'gpg', git: 'https://github.com/sous-chefs/gpg',
 The following platforms are supported and have been tested under
 [Test Kitchen][testkitchen]:
 
-* CentOS 6.9
-* CentOS 7.4
-* Debian 8.6
-* Fedora 27
+* CentOS 7 * 8
+* Debian 9 & 10
+* Amazon Linux
 * Ubuntu 16.04
 * Ubuntu 18.04
 
@@ -104,7 +103,7 @@ Default: https://releases.hashicorp.com/terraform
 
 ### `node['terraform']['version']`
 
-The version of [Terraform][terraform] that will be installed (Default: 0.11.7)
+The version of [Terraform][terraform] that will be installed (Default: 0.12.26)
 
 ### `node['terraform']['checksum']`
 
@@ -126,7 +125,7 @@ normally need to be changed._
   "default_attributes": {
     "terraform": {
       "url_base": "https://nexus.internal.com/nexus",
-      "version": "0.11.7"
+      "version": "0.12.5"
     }
   },
   "override_attributes": {},
@@ -160,6 +159,7 @@ Contributor:: [Dang Nguyen][haidangwa]
 <[haidangwa@gmail.com](mailto:haidangwa@gmail.com)>
 
 Copyright 2014, Ross Timson
+2016, Dang H. Nguyen
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
