@@ -3,7 +3,9 @@
 # Custom resource based on the InSpec resource DSL
 class GpgKey < Inspec.resource(1)
   name 'gpg_key'
-  desc 'check named gpg key has been imported'
+  desc 'check whether a named gpg key has been imported'
+  supports os: 'linux'
+
   example "
     describe gpg_key('security@hashicorp.com') do
       it { should be_imported }

@@ -1,11 +1,9 @@
 
-# frozen_string_literal: true
-
 #
-# Cookbook Name:: terraform
+# Cookbook:: terraform
 # Recipe:: gpgme
 #
-# Copyright 2016-2018, Dang Nguyen <haidangwa@gmail.com>
+# Copyright:: 2016-2020, Dang Nguyen <haidangwa@gmail.com>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.

@@ -1,6 +1,6 @@
 name: chef-terraform-inspec
-title: chef-terraform cookbook Inspec tests
+title: Inspec tests for chef-terraform cookbook
 maintainer: Dang H. Nguyen <haidangwa@gmail.com>
-version: 1.0.0
+version: 1.0.1
 supports:
   - os-family: linux

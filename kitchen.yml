@@ -1,0 +1,141 @@
+<% chef_version = ENV['CHEF_VERSION'] || 'latest' %>
+---
+driver:
+  name: dokken
+  privileged: true # because Docker and SystemD/Upstart
+  chef_version: <%= ENV['CHEF_VERSION'] || 'stable' %>
+
+transport:
+  name: dokken
+
+provisioner:
+  name: dokken
+  deprecations_as_errors: true
+  chef_license: accept
+  product_name: chef
+  product_version: <%= chef_version %>
+  install_strategy: always
+
+platforms:
+- name: debian-9
+  driver:
+    image: dokken/debian-9
+    pid_one_command: /bin/systemd
+    intermediate_instructions:
+      - RUN /usr/bin/apt-get -y update
+      - RUN mkdir -p /data/splunk-test
+      # Disable file locking check by Splunk as it fails on unsupported file systems used in some Docker hosts (e.g. on Mac)
+      - RUN mkdir -p /opt/splunk/etc
+      - RUN printf '
+        SPLUNK_SERVER_NAME=Splunkd\n
+        SLPUNK_WEB_NAME=splunkweb\n
+        OPTIMISTIC_ABOUT_FILE_LOCKING=1\n' > /opt/splunk/etc/splunk-launch.conf
+
+- name: debian-10
+  driver:
+    image: dokken/debian-10
+    pid_one_command: /sbin/init
+    intermediate_instructions:
+      - RUN /usr/bin/apt-get -y update
+      - RUN mkdir -p /data/splunk-test
+      # Disable file locking check by Splunk as it fails on unsupported file systems used in some Docker hosts (e.g. on Mac)
+      - RUN mkdir -p /opt/splunk/etc
+      - RUN printf '
+        SPLUNK_SERVER_NAME=Splunkd\n
+        SLPUNK_WEB_NAME=splunkweb\n
+        OPTIMISTIC_ABOUT_FILE_LOCKING=1\n' > /opt/splunk/etc/splunk-launch.conf
+
+- name: centos-7
+  driver:
+    image: dokken/centos-7
+    pid_one_command: /usr/lib/systemd/systemd
+    intermediate_instructions:
+      - RUN mkdir -p /data/splunk-test
+      # Disable file locking check by Splunk as it fails on unsupported file systems used in some Docker hosts (e.g. on Mac)
+      - RUN mkdir -p /opt/splunk/etc
+      - RUN printf '
+        SPLUNK_SERVER_NAME=Splunkd\n
+        SLPUNK_WEB_NAME=splunkweb\n
+        OPTIMISTIC_ABOUT_FILE_LOCKING=1\n' > /opt/splunk/etc/splunk-launch.conf
+
+- name: centos-8
+  driver:
+    image: dokken/centos-8
+    pid_one_command: /usr/lib/systemd/systemd
+    intermediate_instructions:
+      - RUN mkdir -p /data/splunk-test
+      # Disable file locking check by Splunk as it fails on unsupported file systems used in some Docker hosts (e.g. on Mac)
+      - RUN mkdir -p /opt/splunk/etc
+      - RUN printf '
+        SPLUNK_SERVER_NAME=Splunkd\n
+        SLPUNK_WEB_NAME=splunkweb\n
+        OPTIMISTIC_ABOUT_FILE_LOCKING=1\n' > /opt/splunk/etc/splunk-launch.conf
+
+- name: amazonlinux
+  driver:
+    image: amazonlinux:latest
+    platform: amazon
+    intermediate_instructions:
+      - RUN yum -y install sudo lsof which systemd-sysv initscripts wget net-tools
+      - RUN mkdir -p /data/splunk-test
+      # Disable file locking check by Splunk as it fails on unsupported file systems used in some Docker hosts (e.g. on Mac)
+      - RUN mkdir -p /opt/splunk/etc
+      - RUN printf '
+        SPLUNK_SERVER_NAME=Splunkd\n
+        SLPUNK_WEB_NAME=splunkweb\n
+        OPTIMISTIC_ABOUT_FILE_LOCKING=1\n' > /opt/splunk/etc/splunk-launch.conf
+    pid_one_command: /sbin/init
+
+- name: ubuntu-16.04
+  driver:
+    image: dokken/ubuntu-16.04
+    pid_one_command: /bin/systemd
+    intermediate_instructions:
+      - RUN /usr/bin/apt-get -y update
+      - RUN mkdir -p /data/splunk-test
+      # Disable file locking check by Splunk as it fails on unsupported file systems used in some Docker hosts (e.g. on Mac)
+      - RUN mkdir -p /opt/splunk/etc
+      - RUN printf '
+        SPLUNK_SERVER_NAME=Splunkd\n
+        SLPUNK_WEB_NAME=splunkweb\n
+        OPTIMISTIC_ABOUT_FILE_LOCKING=1\n' > /opt/splunk/etc/splunk-launch.conf
+
+- name: ubuntu-18.04
+  driver:
+    image: dokken/ubuntu-18.04
+    pid_one_command: /bin/systemd
+    intermediate_instructions:
+      - RUN /usr/bin/apt-get -y update
+      - RUN mkdir -p /data/splunk-test
+      # Disable file locking check by Splunk as it fails on unsupported file systems used in some Docker hosts (e.g. on Mac)
+      - RUN mkdir -p /opt/splunk/etc
+      - RUN printf '
+        SPLUNK_SERVER_NAME=Splunkd\n
+        SLPUNK_WEB_NAME=splunkweb\n
+        OPTIMISTIC_ABOUT_FILE_LOCKING=1\n' > /opt/splunk/etc/splunk-launch.conf
+
+verifier:
+  name: inspec
+  inspec_tests:
+    - test/integration/inspec
+
+suites:
+  - name: default
+    run_list:
+      - recipe[terraform_test::ubuntu]
+      - recipe[terraform::default]
+    verifier:
+      inputs:
+        terraform_version: 0.12.26
+  - name: custom_tf_version # installs a non-default version of terraform
+    run_list:
+      - recipe[terraform_test::ubuntu]
+      - recipe[terraform::default]
+    attributes:
+      terraform:
+        version: 0.12.5
+    verifier:
+      inputs:
+        terraform_version: 0.12.5
+    includes:
+      - ubuntu-18.04
