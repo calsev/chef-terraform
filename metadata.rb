@@ -3,7 +3,7 @@ maintainer       'Dang H. Nguyen'
 maintainer_email 'haidangwa@gmail.com'
 license          'Apache-2.0'
 description      'Installs Terraform (terraform.io)'
-version          '2.2.0'
+version          '3.0.0'
 
 depends 'ark', '~> 5.0'
 depends 'gpg', '~> 1.1'

@@ -10,7 +10,7 @@ GRAPH
     yum-epel (>= 0.0.0)
   seven_zip (3.1.2)
     windows (>= 0.0.0)
-  terraform (2.2.0)
+  terraform (3.0.0)
     ark (~> 5.0)
     gpg (~> 1.1)
   windows (7.0.0)
