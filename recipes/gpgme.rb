@@ -1,4 +1,3 @@
-
 #
 # Cookbook:: terraform
 # Recipe:: gpgme

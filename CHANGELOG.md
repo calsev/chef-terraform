@@ -11,7 +11,10 @@ terraform Cookbook CHANGELOG
   - Tests with latest chef-stable version only
   - Updates platforms to current versions
   - Use cookstyle
+  - Removes test/fixtures/cookbooks/terraform_test; this functionality is incorporated in kitchen.yml now
 - Changes default terraform version to 0.12.26
+- Removes dependency on serverspec
+- Updates dependency on the ark and gpg cookbooks
 
 2.1.1
 -----

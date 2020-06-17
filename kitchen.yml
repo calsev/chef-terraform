@@ -122,14 +122,12 @@ verifier:
 suites:
   - name: default
     run_list:
-      - recipe[terraform_test::ubuntu]
       - recipe[terraform::default]
     verifier:
       inputs:
         terraform_version: 0.12.26
   - name: custom_tf_version # installs a non-default version of terraform
     run_list:
-      - recipe[terraform_test::ubuntu]
       - recipe[terraform::default]
     attributes:
       terraform:

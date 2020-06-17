@@ -17,42 +17,10 @@ As of version 3.0.0, this cookbook will require minimum Chef Infra Client `>= 15
 
 ### Cookbooks
 
-This cookbook depends on the [ark cookbook](https://supermarket.getchef.com/cookbooks/ark)
-to unpackage and install terraform.
+This cookbook depends on the following cookbooks:
+* [ark cookbook](https://supermarket.getchef.com/cookbooks/ark) to unpackage and install terraform.
+* [gpg](https://supermarket.chef.io/cookbooks/gpg) to calculate and compare GPG hashes
 
-** GPG **
-As of this writing (5/24/18), the community gpg cookbook that is released in Supermarket was transferred to the sous-chef group for ownership. However, the features that this cookbook relies on is not yet published. Therefore, if you run this cookbook, be sure to use berkshelf to ensure that the correct cookbook dependencies are uploaded to your chef org.
-
-If you see the error below, it is a result of using the published 0.3.0 version of gpg from supermarket.chef.io and not the github referenced commit.
-
-```
-================================================================================
-Recipe Compile Error in /tmp/kitchen/cache/cookbooks/terraform/recipes/default.rb
-================================================================================
-
-NoMethodError
--------------
-undefined method `gpg_install' for cookbook: terraform, recipe: gpgme :Chef::Recipe
-
-Cookbook Trace:
----------------
-  /tmp/kitchen/cache/cookbooks/terraform/recipes/gpgme.rb:34:in `from_file'
-  /tmp/kitchen/cache/cookbooks/terraform/recipes/default.rb:23:in `from_file'
-
-Relevant File Content:
-----------------------
-/tmp/kitchen/cache/cookbooks/terraform/recipes/gpgme.rb:
-
-
- 34>> gpg_install 'gnupg2 and haveged'
- 35:  
-```
-
-This cookbook's Berksfile contains this reference to the current version of gpg in github:
-```
-cookbook 'gpg', git: 'https://github.com/sous-chefs/gpg',
-         ref: '2f682a1406047e99351d184fe18fff035a0c856c'
-```
 
 ### Platforms
 

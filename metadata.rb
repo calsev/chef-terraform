@@ -5,8 +5,8 @@ license          'Apache-2.0'
 description      'Installs Terraform (terraform.io)'
 version          '2.2.0'
 
-depends 'ark', '~> 3.1'
-depends 'gpg', '~> 0.3'
+depends 'ark', '~> 5.0'
+depends 'gpg', '~> 1.1'
 
 supports 'centos', '> 7.0'
 supports 'debian', '> 7.0'

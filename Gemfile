@@ -9,7 +9,3 @@ gem 'rake', '~> 13.0'
 gem 'stove', '~> 7.1'
 gem 'test-kitchen', '~> 2.4'
 gem 'kitchen-dokken', '~> 2.9'
-
-group :integration do
-  gem 'serverspec', '~> 2.41.3'
-end
