@@ -7,6 +7,7 @@ terraform Cookbook CHANGELOG
 - Updating berkshelf and bundler meta files for testing
 - Sets the default terraform version to `0.12.31` to ensure this pulls in the patched version that has been signed
   with the new Hashicorp PGP key.
+- Adds Github Actions to run Test Kitchen
 
 3.0.0
 -----
