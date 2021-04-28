@@ -8,7 +8,7 @@ name: kitchen
       - master
 
 jobs:
-  dokken:
+  default-dokken:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -22,9 +22,34 @@ jobs:
           - ubuntu-1604
         suite:
           - 'default'
+      fail-fast: false
+    steps:
+      - name: Check out code
+        uses: actions/checkout@master
+      - name: Install Chef
+        uses: actionshub/chef-install@master
+      - name: Dokken
+        uses: actionshub/kitchen-dokken@master
+        env:
+          CHEF_LICENSE: accept-no-persist
+        with:
+          suite: ${{ matrix.suite }}
+          os: ${{ matrix.os }}
+      - name: Print debug output on failure
+        if: failure()
+        run: |
+            set -x
+            sudo journalctl -l --since today
+            /usr/bin/kitchen exec ${{ matrix.suite }}-${{ matrix.os }} -c "journalctl -l"
+  custom-tf-version-dokken:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os:
+          - ubuntu-1804
+        suite:
           - 'custom-tf-version'
       fail-fast: false
-
     steps:
       - name: Check out code
         uses: actions/checkout@master
