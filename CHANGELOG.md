@@ -1,6 +1,13 @@
 terraform Cookbook CHANGELOG
 ============================
 
+3.0.1
+-----
+- [PR#5](https://github.com/haidangwa/chef-terraform/pull/5) - update Hashicorp PGP public key
+- Updating berkshelf and bundler meta files for testing
+- Sets the default terraform version to `0.12.31` to ensure this pulls in the patched version that has been signed
+  with the new Hashicorp PGP key.
+
 3.0.0
 -----
 - Changes minimum Chef Infra Client required: `>= 15.8`

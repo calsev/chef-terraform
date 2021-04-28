@@ -1,20 +1,18 @@
-# frozen_string_literal: true
-
 require 'spec_helper'
 require 'shared_examples'
 
 describe 'terraform::default' do
-  let(:terraform_version) { '0.12.26' }
+  let(:terraform_version) { '0.12.31' }
   context 'ubuntu' do
     let(:sha256sum) do
-      '607bc802b1c6c2a5e62cc48640f38aaa64bef1501b46f0ae4829feb51594b257'
+      'e5eeba803bc7d8d0cae7ef04ba7c3541c0abd8f9e934a5e3297bf738b31c5c6d'
     end
 
-    let(:checksums_file) { 'terraform_0.12.26_SHA256SUMS' }
+    let(:checksums_file) { 'terraform_0.12.31_SHA256SUMS' }
 
     let(:checksums) do
       {
-        'terraform_0.12.26_linux_amd64.zip' => sha256sum,
+        'terraform_0.12.31_linux_amd64.zip' => sha256sum,
       }
     end
 
@@ -37,7 +35,7 @@ describe 'terraform::default' do
       it 'logs error' do
         allow(Chef::Resource).to receive(:signatures_trustworthy?)
           .and_return(false)
-        rsrc = 'terraform_0.12.26_SHA256SUMS trust worthiness alert'
+        rsrc = 'terraform_0.12.31_SHA256SUMS trust worthiness alert'
         expect(chef_run).to write_log(rsrc)
       end
 
@@ -70,12 +68,12 @@ describe 'terraform::default' do
 
   context 'windows' do
     let(:sha256sum) do
-      'f232bf25dc32e618fbb692b98857d10a84e16e531e9ce5e87e060c1369bde092'
+      'f5de5733253eb5a32c1bc8d220fdc0ae8230892d356908112268289c808cbb25'
     end
 
     let(:checksums) do
       {
-        'terraform_0.12.26_windows_amd64.zip' => sha256sum,
+        'terraform_0.12.31_windows_amd64.zip' => sha256sum,
       }
     end
 
