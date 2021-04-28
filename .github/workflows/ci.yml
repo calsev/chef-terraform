@@ -1,0 +1,52 @@
+---
+name: kitchen
+
+"on":
+  pull_request:
+  push:
+    branches:
+      - master
+
+jobs:
+  dokken:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os:
+          - amazonlinux
+          - centos-7
+          - centos-8
+          - debian-10
+          - debian-9
+          - ubuntu-1804
+          - ubuntu-1604
+        suite:
+          - 'default'
+          - 'custom-tf-version'
+      fail-fast: false
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@master
+      - name: Install Chef
+        uses: actionshub/chef-install@master
+      - name: Dokken
+        uses: actionshub/kitchen-dokken@master
+        env:
+          CHEF_LICENSE: accept-no-persist
+        with:
+          suite: ${{ matrix.suite }}
+          os: ${{ matrix.os }}
+      - name: Print debug output on failure
+        if: failure()
+        run: |
+            set -x
+            sudo journalctl -l --since today
+            /usr/bin/kitchen exec ${{ matrix.suite }}-${{ matrix.os }} -c "journalctl -l"
+
+  final:
+    needs: [dokken]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@master
