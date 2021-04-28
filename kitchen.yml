@@ -10,7 +10,7 @@ transport:
 
 provisioner:
   name: dokken
-  deprecations_as_errors: true
+  deprecations_as_errors: false
   chef_license: accept
   product_name: chef
   product_version: <%= chef_version %>
@@ -125,15 +125,15 @@ suites:
       - recipe[terraform::default]
     verifier:
       inputs:
-        terraform_version: 0.12.26
+        terraform_version: 0.12.31
   - name: custom_tf_version # installs a non-default version of terraform
     run_list:
       - recipe[terraform::default]
     attributes:
       terraform:
-        version: 0.12.5
+        version: 0.15.1
     verifier:
       inputs:
-        terraform_version: 0.12.5
+        terraform_version: 0.15.1
     includes:
       - ubuntu-18.04
