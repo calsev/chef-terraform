@@ -68,10 +68,3 @@ jobs:
             set -x
             sudo journalctl -l --since today
             /usr/bin/kitchen exec ${{ matrix.suite }}-${{ matrix.os }} -c "journalctl -l"
-
-  final:
-    needs: [dokken]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out code
-        uses: actions/checkout@master
