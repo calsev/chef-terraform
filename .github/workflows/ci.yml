@@ -6,6 +6,9 @@ name: kitchen
   push:
     branches:
       - master
+  release:
+    types:
+      - created
 
 jobs:
   default-dokken:
