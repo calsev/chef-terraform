@@ -27,7 +27,7 @@ jobs:
       - name: Check out code
         uses: actions/checkout@master
       - name: Install Chef
-        uses: actionshub/chef-install@master
+        uses: actionshub/chef-install@main
       - name: Dokken
         uses: actionshub/kitchen-dokken@master
         env:
@@ -54,7 +54,7 @@ jobs:
       - name: Check out code
         uses: actions/checkout@master
       - name: Install Chef
-        uses: actionshub/chef-install@master
+        uses: actionshub/chef-install@main
       - name: Dokken
         uses: actionshub/kitchen-dokken@master
         env:
